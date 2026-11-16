@@ -1,0 +1,227 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: save
+    description: Cloud save operations
+  - name: blueprint
+    description: Photograph-to-block blueprint operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /save:
+    get:
+      operationId: getSave
+      tags: [save]
+      summary: Get the current user's cloud save
+      description: Returns the authenticated user's saved game, or 404 if none exists
+      responses:
+        "200":
+          description: The user's cloud save
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Save"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: No save found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      operationId: putSave
+      tags: [save]
+      summary: Create or update the current user's cloud save
+      description: Upserts the authenticated user's saved game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SaveInput"
+      responses:
+        "200":
+          description: The saved game
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Save"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /blueprint/from-image:
+    post:
+      operationId: analyzeBlueprintFromImage
+      tags: [blueprint]
+      summary: Analyze a photographed object as a block blueprint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BlueprintImageInput"
+      responses:
+        "200":
+          description: A validated block blueprint
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlockBlueprint"
+        "400":
+          description: Invalid image data or an unusable photograph
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "413":
+          description: Image is too large
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: Scan limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "502":
+          description: Image analysis service failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    Save:
+      type: object
+      required:
+        - data
+        - updatedAt
+      properties:
+        data:
+          type: object
+          additionalProperties: true
+        updatedAt:
+          type: string
+    SaveInput:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          additionalProperties: true
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+    BlueprintImageInput:
+      type: object
+      properties:
+        imageData:
+          type: string
+          description: Base64 image payload without a data URL prefix
+          maxLength: 8000000
+        mimeType:
+          type: string
+          enum: [image/jpeg, image/png, image/webp]
+      required:
+        - imageData
+        - mimeType
+    BlockBlueprint:
+      type: object
+      properties:
+        description:
+          type: string
+        width:
+          type: integer
+          minimum: 1
+          maximum: 12
+        height:
+          type: integer
+          minimum: 1
+          maximum: 12
+        depth:
+          type: integer
+          minimum: 1
+          maximum: 12
+        blocks:
+          type: array
+          maxItems: 1728
+          items:
+            $ref: "#/components/schemas/BlueprintBlock"
+      required:
+        - description
+        - width
+        - height
+        - depth
+        - blocks
+    BlueprintBlock:
+      type: object
+      properties:
+        x:
+          type: integer
+          minimum: 0
+          maximum: 11
+        y:
+          type: integer
+          minimum: 0
+          maximum: 11
+        z:
+          type: integer
+          minimum: 0
+          maximum: 11
+        type:
+          type: string
+          enum: [wood, stone, brick, glass, sand, leaf, dirt, grass]
+      required:
+        - x
+        - y
+        - z
+        - type
+

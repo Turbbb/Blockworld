@@ -1,0 +1,39 @@
+1. ZEITSYSTEM, UI & MENÜS
+- 1 Tag und 1 Nacht (24h In-Game) dauern exakt 10 Minuten Echtzeit. Die UI oben rechts zeigt die Uhrzeit im 24h-Format.
+- Tabelle oben rechts: Ersetze die Anzeige "Stuhl" durch "Tisch". "Stuhl" wandert als Option ins Menü.
+- Menü-Modi: Implementiere einen geteilten Bildschirm (Split-Screen) für einen 2-Spieler-Modus [1].
+- Menü-Optionen: Füge eine Option hinzu, um die Charakterfarbe/Skin anzupassen. Ein Konto-Erstellungs-System schaltet einen exklusiven GOLDENEN Charakter frei und erlaubt das Speichern der Welten.
+- App-Download: Zeige dauerhaft ein Auge/Button zum Herunterladen der App an, außer das Spiel läuft bereits in der heruntergeladenen App.
+- Sprache: Füge einen Englisch-Modus / All-Languages-System hinzu (30 l - Englisch Modus).
+- Kamera/Modus: Der gesamte Charakter soll im Spiel sichtbar sein (Third-Person-Option). Füge einen seltenen Modus hinzu (Augen hinten/oben). Zudem Gamepad-/PC- und Handy-Steuerung [2], falls möglich.
+
+2. SURVIVAL-MECHANIKEN, ESSEN & GEGENSTÄNDE (UP-SYSTEM)
+- Sicheres Haus: Befindet sich der Spieler in einem umschlossenen Raum (Wände + Decke) und die Tür ist zu, gilt er als "sicher" und verliert nachts keine UP (User Points / Lebenspunkte).
+- Hunger & Essen: Tiere (inklusive neuer Pferde-Mobs) können geschlagen werden, um Fleisch zu droppen. Isst der Spieler 2 In-Game-Tage (20 Minuten) am Stück nichts, stirbt er sofort (UP = 0).
+- Durst & Trinken: Trinken regeneriert genau +1 UP pro Tag.
+- Fackeln & Steuerung: Fackeln erzeugen dynamisches Licht, wenn man sie in der Hand hält. Auf dem PC wird die Fackel mit [Shift] ausgerüstet, auf dem Handy über einen Touch-Button mit einem [Pfeil nach unten].
+- Fackel-Handwerk: Fackeln baut man mit Stein auf Holz. Berührt eine Fackel ein Portal/Blauwirbel, verliert man -1 UP.
+- Automatische Schmiede: In einer Schmiede baut man automatisch eine Rüstung (Angriff min -1, gibt halbe UP-Herzen).
+- Kristalle, Bomben & Items: Füge seltene 2UP-Kristalle, Bomben und eine Schwarzstahl-Klinge hinzu (zieht beim Schlagen halbes Leben ab, außer bei Lavamonstern, dort gibt sie +1 UP). Auf der Theke in Dörfern liegen Waren zum Interagieren aus.
+
+3. PROGRESSIVES SPAWNING & WELTEN (MONATS-LOGIK)
+- Ein In-Game-Monat hat 30 Tage. 
+- Nach 2 Monaten: Schalte ein Event frei (Reitfunktion-Freischaltung vorbereiten).
+- Nach 10 Monaten: Generiere eine neue Welt mit angepassten, stärkeren Monstern.
+- Spawn-Schutz: Es darf KEINE neue Welt generiert und kein neues Monster gespawnt werden, wenn sich bereits 8 Monster im Umkreis des Spielers befinden.
+- Welten-Vielfalt:
+  * Sandwelt & Traumwelt: Weniger Dorfbewohner und Tiere. Die Sandwelt kann nur mit einer bestimmten Klinge freigeschaltet werden. Diese Waffe ist in einer Höhle versteckt – man muss die Hinterwand eines Blocks abbauen, um die Höhle (im Umkreis von 200 Blöcken) zu finden.
+  * Lava-Welt: Lava-Monster spawnen nachts mit 20 UP. In der Lava verliert man 1 UP pro Sekunde. Endboss ist ein riesiges Lava-Monster (Spinne), das nur im Wasser Schaden nimmt (-10 UP). Es gibt Vulkane, die ausbrechen, in die man aber reingehen kann, um sicher zu sein. Lava zerläuft maximal 3 Blöcke weit flach. Trifft Lava auf Wasser, entsteht Stein (Lava+Wasser = Stein). Es gibt eine Stammexplosion und Burgen, die von Königen bewohnt werden (wo Lavamonster mehr Leben haben).
+  * Wolkenwelt: Eine Mini-Wolkenwelt. In jeder Welt gibt es insgesamt 10 UP zu finden.
+  * Erste Welt (Boito): Ganz selten.
+
+4. WELT-DETAILS, MOBS & PERFORMANCE (KEIN LAG)
+- Unendliche Himmelslinie: Im Flugmodus sieht man kein Ende der Welt (durch geschickten Nebel-Effekt am Horizont, um Chunks zu verbergen und Performance zu sparen). Es ist nachts nicht zu dunkel.
+- Wasserfall: Klares Wasser soll fließen. Erstelle statische, transparente blaue Blöcke als Wasserfall (lag-frei), aus denen man herausspringen und darin hochschwimmen kann.
+- Mini-Dörfer: Häuser sind voll eingerichtet. Dorfbewohner arbeiten, es gibt verschiedene Häuser und einen Tierzug (5UP).
+- Monster-KI & Vielfalt: Erstelle in jeder Welt passende Monster. Gegner starten/spawnen direkt bei dir und folgen dir wilder per Knopfdruck.
+  * Skelette: Das 3D-Modell der Skelette soll wie ein echtes, detailliertes Knochen-Skelett aussehen.
+  * Windmonster: Passen sich an die anderen Welten an.
+  * Flugtiere & Insekten: Vögel fliegen in der Luft, Bienen/Schmetterlinge schwirren am Boden (Flug-KI mit sanfter Sinus-Bewegung).
+- Missions-Modus: Füge einen Missions-Modus hinzu, bei dem man Gegenstände hintereinander sammeln muss. Bei erfolgreichem Abschluss aller Welten erscheint die Nachricht "Spiel geschafft". Der größte Endgegner in der normalen Welt ist ein riesiger Drache.
+- Respawn: Man startet nach dem Sterben genau da neu, wo man gestorben ist.

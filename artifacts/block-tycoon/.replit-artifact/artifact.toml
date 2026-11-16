@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Block World"
+version = "1.0.0"
+id = "artifacts/block-tycoon"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22661
+
+[services.development]
+run = "pnpm --filter @workspace/block-tycoon run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/block-tycoon", "run", "build" ]
+publicDir = "artifacts/block-tycoon/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22661"
+BASE_PATH = "/"

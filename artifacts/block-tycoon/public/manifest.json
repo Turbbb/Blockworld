@@ -1,0 +1,14 @@
+{
+  "name": "Block World",
+  "short_name": "BlockWorld",
+  "description": "Dein Minecraft-Blockbau- und Business-Simulations-Spiel.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1a2e1a",
+  "theme_color": "#2a5a2a",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "192x192" },
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "512x512" }
+  ]
+}

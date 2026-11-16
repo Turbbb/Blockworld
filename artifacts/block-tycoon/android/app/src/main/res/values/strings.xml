@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Block World</string>
+    <string name="title_activity_main">Block World</string>
+    <string name="package_name">app.blockworld.game</string>
+    <string name="custom_url_scheme">app.blockworld.game</string>
+</resources>
